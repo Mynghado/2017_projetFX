@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="480.0" prefWidth="537.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreationEntrepriseControlleur">
+   <center>
+      <AnchorPane prefHeight="480.0" prefWidth="720.0">
+      	<children>
+      		<Pane layoutX="105.0" layoutY="14.0" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: #ECEFF1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      			<children>
+      				<ImageView fitHeight="404.0" fitWidth="220.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+      					<image>
+      						<Image url="@../photos/skyscraper.png" />
+      					</image>
+      				</ImageView>
+      				<Label layoutX="124.0" layoutY="22.0" prefHeight="66.0" prefWidth="355.0" text="Création de votre entreprise">
+      					<font>
+      						<Font name="Agency FB" size="38.0" />
+      					</font>
+      				</Label>
+      				<ButtonBar layoutX="228.0" layoutY="426.0" prefHeight="40.0" prefWidth="200.0">
+      					<buttons>
+      						<Button fx:id="confirmer" mnemonicParsing="false" onAction="#confirmerAction" text="Valider" textFill="#00ff26">
+      							<font>
+      								<Font name="System Bold" size="13.0" />
+      							</font>
+      						</Button>
+      						<Button fx:id="annuler" mnemonicParsing="false" onAction="#annulerAction" text="Annuler" textFill="RED">
+      							<font>
+      								<Font name="System Bold" size="13.0" />
+      							</font>
+      						</Button>
+      					</buttons>
+      				</ButtonBar>
+                  <ChoiceBox fx:id="domaine" layoutX="269.0" layoutY="381.0" prefWidth="150.0" />
+                  <Text layoutX="237.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quel est votre domaine d'activité ?">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <GridPane layoutX="124.0" layoutY="115.0" prefHeight="50.0" prefWidth="145.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+            				<TextField fx:id="nomEntreprise" promptText="ex : Apple" GridPane.rowIndex="1">
+            					<font>
+            						<Font name="System Italic" size="12.0" />
+            					</font>
+            				</TextField>
+                        <Label prefHeight="17.0" prefWidth="133.0" text="Nom de votre entreprise" />
+                     </children>
+                  </GridPane>
+                  <GridPane layoutX="124.0" layoutY="199.0" prefHeight="50.0" prefWidth="145.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+            				<TextField fx:id="adresseEntreprise" promptText="ex : 43 avenue Foch" GridPane.rowIndex="1">
+            					<font>
+            						<Font name="System Italic" size="12.0" />
+            					</font>
+            				</TextField>
+                        <Label text="Rue" />
+                     </children>
+                  </GridPane>
+                  <GridPane layoutX="124.0" layoutY="278.0" prefHeight="50.0" prefWidth="145.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+            				<TextField fx:id="CPEntreprise" promptText="ex : 75004" GridPane.rowIndex="1">
+            					<font>
+            						<Font name="System Italic" size="12.0" />
+            					</font>
+            				</TextField>
+                        <Label text="Code Postal" />
+                     </children>
+                  </GridPane>
+                  <GridPane layoutX="318.0" layoutY="115.0" prefHeight="50.0" prefWidth="145.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+            				<TextField fx:id="villeEntreprise" promptText="ex : Paris" GridPane.rowIndex="1">
+            					<font>
+            						<Font name="System Italic" size="12.0" />
+            					</font>
+            				</TextField>
+                        <Label text="Ville" />
+                     </children>
+                  </GridPane>
+                  <GridPane layoutX="318.0" layoutY="199.0" prefHeight="50.0" prefWidth="145.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+            				<TextField fx:id="mailEntreprise" promptText="ex : example@mail.com" GridPane.rowIndex="1">
+            					<font>
+            						<Font name="System Italic" size="12.0" />
+            					</font>
+            				</TextField>
+                        <Label text="Adresse mail" />
+                     </children>
+                  </GridPane>
+                  <GridPane layoutX="318.0" layoutY="278.0" prefHeight="50.0" prefWidth="145.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+            				<TextField fx:id="telEntreprise" promptText="ex : 01 12 34 56 78" GridPane.rowIndex="1">
+            					<font>
+            						<Font name="System Italic" size="12.0" />
+            					</font>
+            				</TextField>
+                        <Label text="Numéro de téléphone" />
+                     </children>
+                  </GridPane>
+                  <ImageView fitHeight="126.0" fitWidth="109.0" layoutX="103.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../photos/Building.png" />
+                     </image>
+                  </ImageView>
+      			</children>
+      		</Pane>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      	</children>
+      </AnchorPane>
+   </center>
+</BorderPane>

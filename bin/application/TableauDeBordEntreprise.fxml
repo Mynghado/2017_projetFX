@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TableauDeBordEntrepriseControlleur">
+   <center>
+      <AnchorPane BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="280.0" prefWidth="350.0" style="-fx-background-color: #f68a76;">
+               <children>
+                  <Text fill="WHITE" layoutX="106.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vos informations" underline="true">
+                     <font>
+                        <Font name="Agency FB" size="26.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="34.0" fitWidth="36.0" layoutX="59.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../photos/cityscape.png" />
+                     </image>
+                  </ImageView>
+                  <Text fx:id="nomDeL_Entreprise" fill="WHITE" layoutX="115.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de l'entreprise" textAlignment="CENTER" wrappingWidth="119.33334350585938" />
+                  <Text fx:id="rue" fill="WHITE" layoutX="114.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rue" textAlignment="CENTER" wrappingWidth="119.33334350585938" />
+                  <Text fx:id="CP" fill="WHITE" layoutX="114.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CP" textAlignment="CENTER" wrappingWidth="119.33334350585938" />
+                  <Text fx:id="ville" fill="WHITE" layoutX="114.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ville" textAlignment="CENTER" wrappingWidth="119.33334350585938" />
+                  <Text fx:id="noTel" fill="WHITE" layoutX="114.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tél" textAlignment="CENTER" wrappingWidth="119.33334350585938" />
+                  <Text fx:id="mail" fill="WHITE" layoutX="115.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse mail" textAlignment="CENTER" wrappingWidth="119.33334350585938" />
+                  <Button fx:id="modifierMonProfil" layoutX="114.0" layoutY="241.0" mnemonicParsing="false" onAction="#clicModifierMonProfil" text="Modifier mon profil" />
+               </children>
+            </Pane>
+            <Pane layoutX="350.0" prefHeight="279.0" prefWidth="350.0" style="-fx-background-color: #E1BEE7;">
+               <children>
+                  <Text layoutX="90.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Candidat(s) ayant postulé" underline="true" wrappingWidth="170.05075073242188">
+                     <font>
+                        <Font name="Agency FB" size="21.0" />
+                     </font>
+                  </Text>
+                  <TableView fx:id="offreStagePostulee" layoutX="7.0" layoutY="66.0" prefHeight="119.0" prefWidth="337.0">
+                     <columns>
+                        <TableColumn fx:id="offrePostulee_nom" prefWidth="75.0" text="Nom" />
+                        <TableColumn fx:id="offrePostulee_prenom" prefWidth="75.0" text="Prénom" />
+                        <TableColumn fx:id="offrePostulee_libelle" prefWidth="186.0" text="Libellé de l'offre" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="accepterCandidat" layoutX="110.0" layoutY="202.0" mnemonicParsing="false" onAction="#clicAccepterCandidat" text="Accepter cet étudiant" />
+               </children>
+            </Pane>
+            <Pane layoutY="280.0" prefHeight="248.0" prefWidth="350.0" style="-fx-background-color: #BBDEFB;">
+               <children>
+                  <TableView fx:id="offrePostee" layoutX="6.0" layoutY="53.0" prefHeight="132.0" prefWidth="337.0">
+                     <columns>
+                        <TableColumn fx:id="offrePostee_libelle" prefWidth="260.66668701171875" text="Libellé de l'offre" />
+                        <TableColumn fx:id="offrePostee_dateDebut" prefWidth="75.33331298828125" text="Début" />
+                     </columns>
+                  </TableView>
+                  <Text layoutX="125.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Offres postées" underline="true" wrappingWidth="99.38409423828125">
+                     <font>
+                        <Font name="Agency FB" size="21.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="supprimerOffre" layoutX="111.0" layoutY="199.0" mnemonicParsing="false" onAction="#clicSupprimerOffre" text="Supprimer cette offre" />
+               </children>
+            </Pane>
+            <Pane layoutX="350.0" layoutY="278.0" prefHeight="250.0" prefWidth="350.0" style="-fx-background-color: #F8BBD0;">
+               <children>
+                  <TableView fx:id="offreStagePostulee_Accepte" layoutX="10.0" layoutY="53.0" prefHeight="132.0" prefWidth="333.0">
+                    <columns>
+                      <TableColumn fx:id="offreStagePostulee_Accepte_nom" prefWidth="75.0" text="Nom" />
+                      <TableColumn fx:id="offreStagePostulee_Accepte_prenom" prefWidth="75.0" text="Prénom" />
+                        <TableColumn fx:id="offreStagePostulee_Accepte_libelle" prefWidth="182.0" text="Libellé de l'offre" />
+                    </columns>
+                  </TableView>
+                  <Text layoutX="91.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Candidat(s) accépté(s)" underline="true" wrappingWidth="170.05075073242188">
+                     <font>
+                        <Font name="Agency FB" size="21.0" />
+                     </font>
+                  </Text>
+               </children></Pane>
+         </children>
+      </AnchorPane>
+   </center>
+   <top>
+      <AnchorPane prefHeight="17.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="42.0" prefWidth="700.0" style="-fx-background-color: black;">
+               <children>
+                  <Button fx:id="retourAccueil" layoutX="557.0" layoutY="9.0" mnemonicParsing="false" onAction="#clicRetourAcceuil" text="RETOUR À L'ACCUEIL" />
+                  <Text fill="#fd0000" layoutX="26.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find your stage !">
+                     <font>
+                        <Font name="Forte" size="25.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="deconnexion" layoutX="446.0" layoutY="9.0" mnemonicParsing="false" onAction="#clicDeconnexion" text="DÉCONNEXION" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>
