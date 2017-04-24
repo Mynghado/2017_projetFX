@@ -17,23 +17,13 @@ public class TableauDeBordEtudiantModifierControlleur {
 	private Button annuler;
 
 	@FXML
-	private TextField nom;
-	
-	@FXML
-	private TextField prenom;
-
-	@FXML
 	private TextField noEtRue;
-
 	@FXML
 	private TextField codePostal;
-
 	@FXML
 	private TextField ville;
-
 	@FXML
 	private TextField telephone;
-
 	@FXML
 	private TextField adresseMail;
 
@@ -52,7 +42,7 @@ public class TableauDeBordEtudiantModifierControlleur {
 	@FXML
 	public void clicConfirmer(ActionEvent event) {
 		// ON RECUPERE LES NOUVELLES VALEURS
-		Main.gst.modifEtudiant(nom.getText(), prenom.getText(), noEtRue.getText(), codePostal.getText(), ville.getText(), telephone.getText(), adresseMail.getText());
+		Main.gst.modifEtudiant(noEtRue.getText(), codePostal.getText(), ville.getText(), telephone.getText(), adresseMail.getText());
 		// ON FAIT LES MODIFICATION DANS LA BDD
 
 		// ON RAFFRAICHI LE PANE EN HAUT A GAUCHE DU TABLEAU DE BORD ENTREPRISE
