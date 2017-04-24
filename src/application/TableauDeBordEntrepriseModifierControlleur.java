@@ -1,5 +1,6 @@
 package application;
 
+import classes.Entreprise;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,12 +35,15 @@ public class TableauDeBordEntrepriseModifierControlleur {
 
 	@FXML
 	public void initialize() {
-		// RECUPERER LES VALEURS 
-		noEtRue.setText("");
-		codePostal.setText("");
-		ville.setText("");
-		telephone.setText("");
-		adresseMail.setText("");
+		for (Entreprise e : Main.gst.importEnt()) {
+			if (e.getIDEntreprise().equals(Main.gst.getId())) {
+				noEtRue.setText(e.getRue());
+				codePostal.setText(e.getCodePostal());
+				ville.setText(e.getVille());
+				adresseMail.setText(e.getMail());
+				telephone.setText(e.getNumTel());
+			}
+		}
 	}
 
 	// ACTION CLIC CONFIRMER

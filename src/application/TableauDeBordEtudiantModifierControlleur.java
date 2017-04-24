@@ -1,5 +1,7 @@
 package application;
 
+import classes.Entreprise;
+import classes.Etudiant;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,11 +31,15 @@ public class TableauDeBordEtudiantModifierControlleur {
 
 	@FXML
 	public void initialize() {
-		noEtRue.setText("");
-		codePostal.setText("");
-		ville.setText("");
-		telephone.setText("");
-		adresseMail.setText("");
+		for (Etudiant e : Main.gst.importEtudiant()) {
+			if (e.getIDEtudiant().equals(Main.gst.getId())) {
+				noEtRue.setText(e.getRue());
+				codePostal.setText(e.getCodePostal());
+				ville.setText(e.getVille());
+				adresseMail.setText(e.getMail());
+				telephone.setText(e.getNumTel());
+			}
+		}
 	}
 
 	// ACTION CLIC CONFIRMER
