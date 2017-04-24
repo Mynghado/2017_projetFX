@@ -15,15 +15,10 @@ import classes.OffreStage;
 import javafx.beans.property.StringProperty;
 
 public class GestionBDD {
-	private static String url = "jdbc:mysql://localhost/bdd_stage";
-	private static String login = "root";
-	private static String passwd = "";
 	private static String sql = null;
 	private static java.sql.Connection cn = null;
-	private static java.sql.Statement st = null;
     private static java.sql.PreparedStatement stmt = null;
     private static ResultSet rst = null;
-	private static ResultSet rs, rs2 = null;
 	private static String type, ide, idu;
 	private static boolean valCo = false;
 	
@@ -33,22 +28,22 @@ public class GestionBDD {
 	
 	public boolean connexion(String id, String mdp){
 		try{
+			sql = "SELECT IDUtilisateur, identifiant, motPasse, type FROM utilisateur";
+		
 			// Etape 3 : Création d'un statement
-			st = cn.createStatement();
-		
-			String sql = "SELECT IDUtilisateur, identifiant, motPasse, type FROM utilisateur";
-		
+		    stmt = cn.prepareStatement(sql);
+
 			// Etape 4 : exécution requête
-			rs = (ResultSet) st.executeQuery(sql);
+			rst = (ResultSet) stmt.executeQuery(sql);
 			
 			// Si récup données alors étapes 5 (parcours Resultset)
-			while (rs.next() && valCo == false) {
-				if(id.equals(rs.getString("identifiant")) == true && mdp.equals(rs.getString("motPasse")) == true){
-					type = rs.getString("type");
+			while (rst.next() && valCo == false) {
+				if(id.equals(rst.getString("identifiant")) == true && mdp.equals(rst.getString("motPasse")) == true){
+					type = rst.getString("type");
 					System.out.println(type);
-					idu = rs.getString("IDUtilisateur");
+					idu = rst.getString("IDUtilisateur");
 					valCo = true;
-					getTableId(rs.getString("IDUtilisateur"));
+					getTableId(rst.getString("IDUtilisateur"));
 					return valCo;
 				}
 			}
@@ -392,7 +387,7 @@ public class GestionBDD {
 			stmt.setString(7, offre.getDesc());
 
 			// Etape 4 : exécution requête
-			st.executeUpdate(sql);
+			stmt.executeUpdate(sql);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
