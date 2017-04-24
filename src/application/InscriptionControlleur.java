@@ -98,7 +98,7 @@ public class InscriptionControlleur {
 			}
 		}
 
-		// SI L'UTILISATEUR EST UN ETUDIANT
+		// SI L'UTILISATEUR EST UN ÉTUDIANT
 		else if (statut.getValue().equals("etudiant")) {
 			// SI NOM D'UTILISATEUR DÉJÀ UTILISÉ
 			if(!Main.gst.ajoutUtilisateur(champIdentifiant.getText(), champMotDePasse.getText(), statut.getValue().toString())){

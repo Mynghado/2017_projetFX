@@ -18,11 +18,9 @@ public class Main extends Application {
 
 	// CREATION DES ATTRIBUTS
 	private Stage primaryStage;
-	//private Scene scene;
 	private BorderPane rootLayout;
 	
 	public static GestionBDD gst = new GestionBDD(ConnectionBDD.getCo());
-	//static boolean valCo = false;
 	static Utilisateur utemp = new Utilisateur("", "", "");
 
 	@Override
