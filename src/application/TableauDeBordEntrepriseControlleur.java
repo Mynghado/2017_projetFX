@@ -138,7 +138,7 @@ public class TableauDeBordEntrepriseControlleur {
 
 		// EN HAUT A GAUCHE
 		// INITIALISE LES INFORMATIONS DE L'ENTREPRISE CONNECTÉE
-		for (Entreprise e : Main.listeEntreprise) {
+		for (Entreprise e : Main.gst.importEnt()) {
 			if (e.getIDEntreprise().equals(Main.gst.getId())) {
 				nomDeL_Entreprise.setText(e.getNomEnt());
 				rue.setText(e.getRue());
@@ -260,13 +260,13 @@ public class TableauDeBordEntrepriseControlleur {
 		offrePostulee.remove(0, offrePostulee.size());
 		offreAcceptee.remove(0, offreAcceptee.size());
 
-		for (OffreStage o : Main.listeOffre) {
+		for (OffreStage o : Main.gst.importOffre()) {
 			if (o.getIDEntreprise_fk().equals(Main.gst.getId())) {
 				offreEntreprise.add(o);
 			}
 		}
 
-		for (OffrePostulee o : Main.listeOffrePostulee) {
+		for (OffrePostulee o : Main.gst.importOffresPostulees()) {
 			if (o.getStatut().equals("1")) {
 				offreAcceptee.add(o);
 			} else {

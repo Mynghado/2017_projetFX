@@ -86,12 +86,9 @@ public class TableauDeBordEtudiantControlleur {
 
 	@FXML
 	public void initialize() {
-		offreAcceptee = FXCollections.observableArrayList(); // définition des
-																// données
-		offrePostuleeEtudiant = FXCollections.observableArrayList(); // définition
-																		// des
-																		// données
-
+		offreAcceptee = FXCollections.observableArrayList(); // définition des données
+		offrePostuleeEtudiant = FXCollections.observableArrayList(); // définition des données
+		
 		Main.gst.importEtudiant();
 		Main.gst.importOffresPostulees();
 		triOffres();
@@ -110,7 +107,7 @@ public class TableauDeBordEtudiantControlleur {
 		lesOffresAcceptees.setItems(null);
 		lesOffresAcceptees.setItems(offreAcceptee);
 
-		for (Etudiant e : Main.listeEtudiant) {
+		for (Etudiant e : Main.gst.importEtudiant()) {
 			if (e.getIDEtudiant().equals(Main.gst.getId())) {
 				System.out.println("e.IDEtudiant : " + e.getIDEtudiant() + " Main.gst.getID : " + Main.gst.getId());
 				nom.setText(e.getNom());
@@ -233,7 +230,7 @@ public class TableauDeBordEtudiantControlleur {
 		offrePostuleeEtudiant.remove(0, offrePostuleeEtudiant.size());
 		offreAcceptee.remove(0, offreAcceptee.size());
 
-		for (OffrePostulee o : Main.listeOffrePostulee) {
+		for (OffrePostulee o : Main.gst.importOffresPostulees()) {
 			if (o.getIDEtudiant().equals(Main.gst.getId())) {
 				System.out.println(o.getLibl() + " " + o.getIDEtudiant() + " " + Main.gst.getId());
 				offrePostuleeEtudiant.add(o);

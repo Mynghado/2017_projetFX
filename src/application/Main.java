@@ -1,6 +1,5 @@
 package application;
 
-
 import classes.ConnectionBDD;
 import classes.Entreprise;
 import classes.Etudiant;
@@ -26,20 +25,8 @@ public class Main extends Application {
 	//static boolean valCo = false;
 	static Utilisateur utemp = new Utilisateur("", "", "");
 
-	static ObservableList<Entreprise> listeEntreprise;
-	static ObservableList<OffreStage> listeOffre;
-	static ObservableList<Etudiant> listeEtudiant;
-	static ObservableList<Etudiant> listeEtudiantPostulant;
-	static ObservableList<OffrePostulee> listeOffrePostulee;
-
 	@Override
-	public void start(Stage primaryStage) {
-		listeEntreprise = FXCollections.observableArrayList();
-		listeOffre = FXCollections.observableArrayList();
-		listeEtudiant = FXCollections.observableArrayList();
-		listeOffrePostulee = FXCollections.observableArrayList();
-		listeEtudiantPostulant = FXCollections.observableArrayList();
-		
+	public void start(Stage primaryStage) {		
 		this.primaryStage = primaryStage;
 		// DONNE LE TITRE A LA FENETRE
 		this.primaryStage.setTitle("Offres de Stages");

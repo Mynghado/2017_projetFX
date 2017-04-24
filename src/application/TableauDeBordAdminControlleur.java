@@ -89,13 +89,13 @@ public class TableauDeBordAdminControlleur {
 
 		// ETAPE 4 : APPLIQUER L'OBSERVALE LISTE AU TABLE VIEW
 		lesEntreprises.setItems(null);
-		lesEntreprises.setItems(Main.listeEntreprise);
+		lesEntreprises.setItems(Main.gst.importEnt());
 
 		lesOffresDeStages.setItems(null);
-		lesOffresDeStages.setItems(Main.listeOffre);
+		lesOffresDeStages.setItems(Main.gst.importOffre());
 
 		lesEtudiants.setItems(null);
-		lesEtudiants.setItems(Main.listeEtudiant);
+		lesEtudiants.setItems(Main.gst.importEtudiant());
 	}
 
 	@FXML
@@ -142,8 +142,8 @@ public class TableauDeBordAdminControlleur {
 			Main.gst.importOffre();
 
 			// 3 - APPLIQUER LA "NOUVELLE" LISTE OBSERVABLE AU TABLE VIEW
-			lesEntreprises.setItems(Main.listeEntreprise);
-			lesOffresDeStages.setItems(Main.listeOffre);
+			lesEntreprises.setItems(Main.gst.importEnt());
+			lesOffresDeStages.setItems(Main.gst.importOffre());
 		}
 		// MESSAGE D'ERREUR SI L'UTILISATEUR N'A PAS SELECTIONNE D'ENTREPRISE
 		else {
@@ -168,7 +168,7 @@ public class TableauDeBordAdminControlleur {
 			Main.gst.importOffre();
 
 			// 3 - APPLIQUER LA "NOUVELLE" LISTE OBSERVABLE AU TABLE VIEW
-			lesOffresDeStages.setItems(Main.listeOffre);
+			lesOffresDeStages.setItems(Main.gst.importOffre());
 		}
 		// MESSAGE D'ERREUR SI L'UTILISATEUR N'A PAS SELECTIONNE D'ENTREPRISE
 		else {
@@ -194,7 +194,7 @@ public class TableauDeBordAdminControlleur {
 			Main.gst.importEtudiant();
 
 			// 3 - APPLIQUER LA "NOUVELLE" LISTE OBSERVABLE AU TABLE VIEW
-			lesEtudiants.setItems(Main.listeEtudiant);
+			lesEtudiants.setItems(Main.gst.importEtudiant());
 		}
 		// MESSAGE D'ERREUR SI L'UTILISATEUR N'A PAS SELECTIONNE D'ENTREPRISE
 		else {
@@ -205,5 +205,4 @@ public class TableauDeBordAdminControlleur {
 			alert.showAndWait();
 		}
 	}
-
 }

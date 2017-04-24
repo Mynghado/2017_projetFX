@@ -85,7 +85,7 @@ public class ConsulterOffresStagesControlleur {
 		temps.setCellValueFactory(new PropertyValueFactory<>("duree"));
 
 		offreStage.setItems(null);
-		offreStage.setItems(Main.listeOffre);
+		offreStage.setItems(Main.gst.importOffre());
 
 		// APELLE LA METHODE D'ECOUTE
 		offreStage.getSelectionModel().selectedItemProperty()
@@ -176,7 +176,7 @@ public class ConsulterOffresStagesControlleur {
 		Alert alert = new Alert(AlertType.ERROR);
 		Main.gst.importOffresPostulees();
 
-		for (OffrePostulee o : Main.listeOffrePostulee) {
+		for (OffrePostulee o : Main.gst.importOffresPostulees()) {
 			if (o.getIDEtudiant().equals(Main.gst.getId())
 					&& o.getIDOffreStage().equals(offreStage.getItems().get(i).getIDOffreStage())) {
 				alert.setTitle("Attention !");

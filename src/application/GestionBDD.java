@@ -138,10 +138,10 @@ public class GestionBDD {
 		 }
 	}
 
-	public void importOffre(){
+	public ObservableList<OffreStage> importOffre(){
 		String nomCol[] = {"IDOffreStage", "nomEntreprise", "domOffre", "libelle", "dateDebut", "duree", "chemin", "description", "IDEntreprise_fk", "adVille", "adMail"};
-
-	    Main.listeOffre.remove(0, Main.listeOffre.size());
+		ObservableList<OffreStage> listOffre = FXCollections.observableArrayList();
+	    //Main.listeOffre.remove(0, Main.listeOffre.size());
 		
 		try{
 			sql = "SELECT o.*, e.adVille, e.adMail FROM entreprise e INNER JOIN offrestage o ON e.IDEntreprise = o.IDEntreprise_fk";
@@ -153,7 +153,7 @@ public class GestionBDD {
 			rst = (ResultSet) stmt.executeQuery();
 
 			while (rst.next()) {
-				Main.listeOffre.add(new OffreStage(rst.getString(nomCol[0]), rst.getString(nomCol[1]), rst.getString(nomCol[2]), 
+				listOffre.add(new OffreStage(rst.getString(nomCol[0]), rst.getString(nomCol[1]), rst.getString(nomCol[2]), 
 				rst.getString(nomCol[3]), rst.getString(nomCol[4]), Integer.valueOf(rst.getInt(nomCol[5])), rst.getString(nomCol[6]), 
 				rst.getString(nomCol[7]), rst.getString(nomCol[8]), rst.getString(nomCol[9]), rst.getString(nomCol[10])));
 			}
@@ -161,14 +161,17 @@ public class GestionBDD {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return listOffre;
 	}
 	
-	public void importOffresPostulees(){
+	public ObservableList<OffrePostulee> importOffresPostulees(){
 		String nomCol[] = {"IDOffreStage", "nomEntreprise", "domOffre", "libelle", "dateDebut", "duree", "chemin", "description", "IDEntreprise_fk"};
 		String nomCol2[] = {"IDEtudiant", "nom", "prenom", "adNumRue", "adCodePostal", "adVille", "adMail", "numTel", "ecole", "IDUtilisateur_fk"};
 		String nomCol3 = "statut";
-	    
-		Main.listeOffrePostulee.remove(0, Main.listeOffrePostulee.size());
+		ObservableList<OffrePostulee> listOffre = FXCollections.observableArrayList();
+
+		//Main.listeOffrePostulee.remove(0, Main.listeOffrePostulee.size());
 		
 		try{
 			if(type.equals("entreprise")){
@@ -190,7 +193,7 @@ public class GestionBDD {
 			rst = (ResultSet) stmt.executeQuery();
 
 			while (rst.next()) {
-				Main.listeOffrePostulee.add(new OffrePostulee(rst.getString(nomCol[0]), rst.getString(nomCol[1]), rst.getString(nomCol[2]), 
+				listOffre.add(new OffrePostulee(rst.getString(nomCol[0]), rst.getString(nomCol[1]), rst.getString(nomCol[2]), 
 				rst.getString(nomCol[3]), rst.getString(nomCol[4]), Integer.valueOf(rst.getInt(nomCol[5])), rst.getString(nomCol[6]), 
 				rst.getString(nomCol[7]), rst.getString(nomCol[8]), rst.getString(nomCol2[0]), rst.getString(nomCol2[1]), rst.getString(nomCol2[2]),
 				rst.getString(nomCol3)));
@@ -198,6 +201,8 @@ public class GestionBDD {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return listOffre;
 	}
 	
 	public void supprOffre(String id){
@@ -253,10 +258,11 @@ public class GestionBDD {
 		 }
 	}
 	
-	public void importEtudiant(){		
+	public ObservableList<Etudiant> importEtudiant(){		
 		String nomCol[] = {"IDEtudiant", "nom", "prenom", "adNumRue", "adCodePostal", "adVille", "adMail", "numTel", "ecole", "IDUtilisateur_fk"};
+		ObservableList<Etudiant> listEtu = FXCollections.observableArrayList();
 
-		Main.listeEtudiant.remove(0, Main.listeEtudiant.size());
+		//Main.listeEtudiant.remove(0, Main.listeEtudiant.size());
 		
 		try{
 			// Etape 3 : Création d'un statement
@@ -270,7 +276,7 @@ public class GestionBDD {
 			
 			// Si récup données alors étapes 5 (parcours Resultset)
 			while (rst.next()) {
-				Main.listeEtudiant.add(new Etudiant(rst.getString(nomCol[0]), rst.getString(nomCol[1]), rst.getString(nomCol[2]), 
+				listEtu.add(new Etudiant(rst.getString(nomCol[0]), rst.getString(nomCol[1]), rst.getString(nomCol[2]), 
 				rst.getString(nomCol[3]), rst.getString(nomCol[4]), rst.getString(nomCol[5]), rst.getString(nomCol[6]), 
 				rst.getString(nomCol[7]), rst.getString(nomCol[8]), rst.getString(nomCol[9])));
 			}
@@ -278,6 +284,8 @@ public class GestionBDD {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return listEtu;
 	}
 	
 	public void ajoutEtudiant(Etudiant etu){
