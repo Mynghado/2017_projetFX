@@ -19,31 +19,23 @@ public class CreationEtudiantControlleur {
 	// ************************ DEBUT DES ATTRIBUTS ***************
 	@FXML
 	private TextField nom;
-
 	@FXML
 	private TextField prenom;
-
 	@FXML
 	private TextField numeroEtRue;
-
 	@FXML
 	private TextField codePostal;
-
 	@FXML
 	private TextField ville;
-
 	@FXML
 	private TextField addresseMail;
-
 	@FXML
 	private TextField numeroTel;
-
 	@FXML
 	private TextField ecole;
 
 	@FXML
 	private Button confirmer;
-
 	@FXML
 	private Button annuler;
 
@@ -73,18 +65,23 @@ public class CreationEtudiantControlleur {
 		// ON PASSE A LA FENETRE SUIVANTE
 		else {
 			((Node) (event.getSource())).getScene().getWindow().hide();
-			// CREATION D'UNE ENTREPRISE
+			// VÉRIFICATION SI IDENTIFIANTS PAS DÉJÀ PRIS
 			Main.gst.ajoutUtilisateur(Main.utemp.getIdentifiant(), Main.utemp.getMotPasse(), Main.utemp.getType());
+			
+			// CONNEXION (POUR L'EXPORTATION - FERA LA LIAISON ENTRE L'UTILISATEUR ET SON ENTREPRISE)
 			Main.gst.connexion(Main.utemp.getIdentifiant(), Main.utemp.getMotPasse());
 			
+			// CRÉATION DE L'ÉTUDIANT
 			Etudiant etu = new Etudiant("0", nom.getText(), prenom.getText(),
-					numeroEtRue.getText(), codePostal.getText(), ville.getText(),
-					addresseMail.getText(), numeroTel.getText(), ecole.getText(), "0");
+			numeroEtRue.getText(), codePostal.getText(), ville.getText(),
+			addresseMail.getText(), numeroTel.getText(), ecole.getText(), "0");
 
 			// EXPORTE L'ENTREPRISE VERS LA BDD VIA GESTIONBDD
 			etu.exporter();
 			
+			// DÉCONNEXION
 			Main.gst.deconnexion();
+			
 			// PAGE SUIVANTE
 			try {
 				Stage primaryStage = new Stage();
