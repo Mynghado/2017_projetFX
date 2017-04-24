@@ -17,28 +17,26 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class GestionBDD {
-	private static String sql = null;
-	private static java.sql.Connection cn = null;
-    private static java.sql.PreparedStatement stmt = null;
-    private static ResultSet rst = null;
-	private static String type, ide, idu;
-	private static boolean valCo = false;
+	private static String sql = null; // REQUÊTES
+	private static java.sql.Connection cn = null; // CONNEXION
+    private static java.sql.PreparedStatement stmt = null; // REQUÊTES PRÉPARÉES
+    private static ResultSet rst = null; // LE RÉSULTAT DE LA SÉLECTION
+	private static String type, ide, idu; // TYPE DE COMPTE - IDENTREPRISE - IDUTILISATEUR
+	private static boolean valCo = false; // SI CONNECTÉ OU NON
 	
 	GestionBDD(java.sql.Connection connection){
 		this.cn = connection;
 	}
 	
+	// AUTHENTIFICATION
 	public boolean connexion(String id, String mdp){
 		try{
 			sql = "SELECT IDUtilisateur, identifiant, motPasse, type FROM utilisateur";
 		
-			// Etape 3 : Création d'un statement
 		    stmt = cn.prepareStatement(sql);
 
-			// Etape 4 : exécution requête
 			rst = (ResultSet) stmt.executeQuery(sql);
 			
-			// Si récup données alors étapes 5 (parcours Resultset)
 			while (rst.next() && valCo == false) {
 				if(id.equals(rst.getString("identifiant")) == true && mdp.equals(rst.getString("motPasse")) == true){
 					type = rst.getString("type");
@@ -46,6 +44,7 @@ public class GestionBDD {
 					idu = rst.getString("IDUtilisateur");
 					valCo = true;
 					getTableId(rst.getString("IDUtilisateur"));
+					
 					return valCo;
 				}
 			}
@@ -56,14 +55,15 @@ public class GestionBDD {
 			if(valCo == false){
 				valCo = false;
 				type = null;
-				id = null;
 			}
 			return valCo;
 		}
 	}
 	
+	// RÉCUPÉRATION DE L'ID DE L'UTILISATEUR DANS "SA" TABLE
 	public void getTableId(String IDUti){
 		try{
+			// SI C'EST UNE ENTREPRISE
 			if(type.equals("entreprise")){
 				sql = "SELECT e.IDEntreprise FROM entreprise e INNER JOIN utilisateur ON IDUtilisateur_fk = ?";
 			    stmt = cn.prepareStatement(sql);
@@ -71,14 +71,16 @@ public class GestionBDD {
 
 				rst = (ResultSet) stmt.executeQuery();
 			}
+			// SI C'EST UN ÉTUDIANT - NE FAIT RIEN SI ADMINISTRATEUR
 			else{ 
-				sql ="SELECT IDEtudiant FROM etudiant INNER JOIN utilisateur ON IDUtilisateur_fk = ?";
-			    java.sql.PreparedStatement stmt = cn.prepareStatement(sql);
+				sql = "SELECT IDEtudiant FROM etudiant INNER JOIN utilisateur ON IDUtilisateur_fk = ?";
+			    stmt = cn.prepareStatement(sql);
 			    stmt.setString(1, IDUti);
 			    
 				rst = (ResultSet) stmt.executeQuery();
 			}
-
+			
+			// RÉCUPÉRATION DE L'ID
 			while (rst.next()) {
 				if(type.equals("entreprise")){
 					ide = rst.getString("IDEntreprise");	
@@ -92,28 +94,26 @@ public class GestionBDD {
 		}
 	}
 	
+	// DÉCONNEXION - PASSE NOS DONNÉES À NULL ET NOTRE VARIABLE DE CONNEXION À FALSE
 	public void deconnexion(){
 		valCo = false;
 		type = null;
 		ide = null;
 	}
 			
+	// RÉCUPÉRATION DE LA LISTE DES ENTREPRISES - NOUS SERT À SET LES TABLEVIEW
 	public ObservableList<Entreprise> importEnt(){
 		String nomCol[] = {"IDEntreprise", "nomEntreprise", "adNumRue", "adCodePostal", "adVille", "adMail", "numTel", "sectActv", "IDUtilisateur_fk"};
 		ObservableList<Entreprise> listEnt = FXCollections.observableArrayList();
 
-		//Main.listeEntreprise.remove(0, Main.listeEntreprise.size());
-
 		try{
 			sql = "SELECT * FROM entreprise";
 			
-			// Etape 3 : Création d'un statement
 		    stmt = cn.prepareStatement(sql);
 
-			// Etape 4 : exécution requête
 			rst = (ResultSet) stmt.executeQuery(sql);
 
-			// Si récup données alors étapes 5 (parcours Resultset)
+			// POUR CHAQUE ENTREPRISE - L'AJOUTER À LA LISTE
 			while (rst.next()) {
 				listEnt.add(new Entreprise(rst.getString(nomCol[0]), rst.getString(nomCol[1]), rst.getString(nomCol[2]), 
 				rst.getString(nomCol[3]), rst.getString(nomCol[4]), rst.getString(nomCol[5]), rst.getString(nomCol[6]), rst.getString(nomCol[7]), 
@@ -126,6 +126,7 @@ public class GestionBDD {
 		return listEnt;
 	}
 	
+	// SUPPRESSION D'UNE ENTREPRISE EN FONCTION DE L'ID DE SON UTILISATEUR - LES DEUX SONT LIÉS
 	public void supprEnt(String id){
 		try {  
 		    stmt = cn.prepareStatement("DELETE FROM utilisateur WHERE IDUtilisateur = ?");
@@ -138,18 +139,16 @@ public class GestionBDD {
 		 }
 	}
 
+	// RÉCUPÉRATION DE LA LISTE DES OFFRES DE STAGE - NOUS SERT À SET LES TABLEVIEW
 	public ObservableList<OffreStage> importOffre(){
 		String nomCol[] = {"IDOffreStage", "nomEntreprise", "domOffre", "libelle", "dateDebut", "duree", "chemin", "description", "IDEntreprise_fk", "adVille", "adMail"};
 		ObservableList<OffreStage> listOffre = FXCollections.observableArrayList();
-	    //Main.listeOffre.remove(0, Main.listeOffre.size());
 		
 		try{
 			sql = "SELECT o.*, e.adVille, e.adMail FROM entreprise e INNER JOIN offrestage o ON e.IDEntreprise = o.IDEntreprise_fk";
 			
-			// Etape 3 : Création d'un statement
 		    stmt = cn.prepareStatement(sql);
 
-			// Etape 4 : exécution requête
 			rst = (ResultSet) stmt.executeQuery();
 
 			while (rst.next()) {
@@ -165,15 +164,15 @@ public class GestionBDD {
 		return listOffre;
 	}
 	
+	// RÉCUPÉRATION DE LA LISTE DES OFFRES POSTULÉES - NOUS SERT À SET LES TABLEVIEW
 	public ObservableList<OffrePostulee> importOffresPostulees(){
 		String nomCol[] = {"IDOffreStage", "nomEntreprise", "domOffre", "libelle", "dateDebut", "duree", "chemin", "description", "IDEntreprise_fk"};
 		String nomCol2[] = {"IDEtudiant", "nom", "prenom", "adNumRue", "adCodePostal", "adVille", "adMail", "numTel", "ecole", "IDUtilisateur_fk"};
 		String nomCol3 = "statut";
 		ObservableList<OffrePostulee> listOffre = FXCollections.observableArrayList();
-
-		//Main.listeOffrePostulee.remove(0, Main.listeOffrePostulee.size());
 		
 		try{
+			// SI C'EST UNE ENTREPRISE - ON RÉCUPÈRE SES OFFRES OÙ DES ÉTUDIANTS ONT POSTULÉ
 			if(type.equals("entreprise")){
 				sql = "SELECT o.*, e.*, o2.statut FROM offrestage o INNER JOIN offrepostulee o2 ON o.IDOffreStage = o2.IDOffreStage_fk "
 				+ "INNER JOIN etudiant e ON e.IDEtudiant = o2.IDEtudiant_fk WHERE o.IDEntreprise_fk = ?";
@@ -181,6 +180,7 @@ public class GestionBDD {
 			    stmt = cn.prepareStatement(sql);
 			    stmt.setString(1, ide);
 			}
+			// SINON, C'EST UN ÉTUDIANT - ON RÉCUPÈRE LES OFFRES OÙ IL A POSTULÉ LUI
 			else if(type.equals("etudiant")){
 				sql = "SELECT o.*, e.*, o2.statut FROM offrestage o INNER JOIN offrepostulee o2 ON o.IDOffreStage = o2.IDOffreStage_fk "
 				+ "INNER JOIN etudiant e ON e.IDEtudiant = o2.IDEtudiant_fk AND o2.IDEtudiant_fk = ?";
@@ -189,7 +189,6 @@ public class GestionBDD {
 			    stmt.setString(1, ide);
 			}
 			
-			// Etape 4 : exécution requête
 			rst = (ResultSet) stmt.executeQuery();
 
 			while (rst.next()) {
@@ -205,6 +204,7 @@ public class GestionBDD {
 		return listOffre;
 	}
 	
+	// SUPPRESSION D'UNE OFFRE EN FONCTION DE SON ID
 	public void supprOffre(String id){
 		try {  
 		    java.sql.PreparedStatement st = cn.prepareStatement("DELETE FROM offrestage WHERE IDOffreStage = ?");
@@ -217,6 +217,7 @@ public class GestionBDD {
 		 }
 	}
 	
+	// ACCEPTATION PAR L'ENTREPRISE D'UN ÉTUDIANT
 	public void accepterOffre(String IDOffreStage, String IDEtudiant){
 		try{
 			java.sql.PreparedStatement st = cn.prepareStatement("UPDATE offrepostulee SET statut = 1 WHERE IDEtudiant_fk = ? AND IDOffreStage_fk = ?");
@@ -229,6 +230,7 @@ public class GestionBDD {
 		}
 	}
 	
+	// POSTULATION À UNE OFFRE D'UNE ENTREPRISE PAR UN ÉTUDIANT
 	public void postulerOffre(String IDOffreStage){
 		try {			
 			java.sql.PreparedStatement st = cn.prepareStatement("INSERT INTO offrePostulee (`IDEtudiant_fk`, `IDOffreStage_fk`, `statut`) "
@@ -245,6 +247,7 @@ public class GestionBDD {
 		}
 	}
 	
+	// ANNULATION DE LA POSTULATION À UNE OFFRE PAR UN ÉTUDIANT
 	public void depostulerOffre(String IDOffreStage){
 		try {  
 		    java.sql.PreparedStatement st = cn.prepareStatement("DELETE FROM offrepostulee WHERE IDEtudiant_fk = ? AND IDOffreStage_fk = ?");
@@ -258,23 +261,18 @@ public class GestionBDD {
 		 }
 	}
 	
+	// RÉCUPÉRATION DE LA LISTE DES ÉTUDIANTS - NOUS SERT À SET LES TABLEVIEW
 	public ObservableList<Etudiant> importEtudiant(){		
 		String nomCol[] = {"IDEtudiant", "nom", "prenom", "adNumRue", "adCodePostal", "adVille", "adMail", "numTel", "ecole", "IDUtilisateur_fk"};
 		ObservableList<Etudiant> listEtu = FXCollections.observableArrayList();
-
-		//Main.listeEtudiant.remove(0, Main.listeEtudiant.size());
 		
 		try{
-			// Etape 3 : Création d'un statement
 			sql = "SELECT * FROM etudiant";
 
-			// Etape 3 : Création d'un statement
 		    stmt = cn.prepareStatement(sql);
 
-			// Etape 4 : exécution requête
 			rst = (ResultSet) stmt.executeQuery();
 			
-			// Si récup données alors étapes 5 (parcours Resultset)
 			while (rst.next()) {
 				listEtu.add(new Etudiant(rst.getString(nomCol[0]), rst.getString(nomCol[1]), rst.getString(nomCol[2]), 
 				rst.getString(nomCol[3]), rst.getString(nomCol[4]), rst.getString(nomCol[5]), rst.getString(nomCol[6]), 
@@ -288,6 +286,7 @@ public class GestionBDD {
 		return listEtu;
 	}
 	
+	// AJOUT D'UN ÉTUDIANT 
 	public void ajoutEtudiant(Etudiant etu){
 		try {			
 			stmt = cn.prepareStatement("INSERT INTO etudiant (`nom`, `prenom`, `adNumRue`, `adCodePostal`, `adVille`, `adMail`, `numTel`, `ecole`, `IDUtilisateur_fk`) "
@@ -311,6 +310,7 @@ public class GestionBDD {
 		}
 	}
 	
+	// MODIFICATION D'UN ÉTUDIANT
 	public void modifEtudiant(String rue, String codePostal, String ville, String tel, String mail){
 		try{
 			stmt = cn.prepareStatement("UPDATE etudiant SET adNumRue = ?, adCodePostal = ?, adVille = ?, adMail = ?, numTel = ? WHERE IDUtilisateur_fk = ?");
@@ -328,6 +328,7 @@ public class GestionBDD {
 
 	}
 
+	// SUPPRESSION D'UN ÉTUDIANT EN FONCTION DE SON ID UTILISATEUR
 	public void supprEtudiant(String id){
 		try {  
 		    java.sql.PreparedStatement st = cn.prepareStatement("DELETE FROM utilisateur WHERE IDUtilisateur = ?");
@@ -339,13 +340,12 @@ public class GestionBDD {
 		 }
 	}
 	
+	// AJOUT D'UNE ENTREPRISE 
 	public void exporterEnt(Entreprise ent){		
 		try {
-			//String sql = "INSERT INTO `entreprise` (`nomEntreprise`, `adNumRue`, `adCodePostal`, `adVille`, `adMail`, `numTel`, `sectActv`) VALUES ('" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "')";
 			sql = "INSERT INTO `entreprise` (`nomEntreprise`, `adNumRue`, `adCodePostal`, `adVille`, `adMail`, `numTel`, `sectActv`, `IDUtilisateur_fk`) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			
-			// Etape 3 : Création d'un statement
 		    stmt = cn.prepareStatement(sql);
 		    
 		    stmt.setString(1, ent.getNomEnt());
@@ -357,13 +357,13 @@ public class GestionBDD {
 		    stmt.setString(7, ent.getSectActv());
 		    stmt.setString(8, idu);
 		    
-			// Etape 4 : exécution requête
 		    stmt.executeUpdate(); 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	// MODIFICATION D'UNE ENTREPRISE
 	public void modifEntreprise(String rue, String codePostal, String ville, String telephone, String mail){
 		try{
 			System.out.println(telephone);
@@ -380,11 +380,11 @@ public class GestionBDD {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
+	
+	// AJOUT D'UNE OFFRE
 	public static void exporterOffre(OffreStage offre){				
 		try {
-			// Etape 3 : Création d'un statement
 			sql = "INSERT INTO `offrestage` (`nomEntreprise`, `domOffre`, `libelle`, `dateDebut`, `duree`, `chemin`, `description`, `IDEntreprise_fk`) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -399,19 +399,18 @@ public class GestionBDD {
 			stmt.setString(7, offre.getDesc());
 			stmt.setString(8, ide);
 
-			// Etape 4 : exécution requête
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	// AJOUT D'UN UTILISATEUR
 	public boolean ajoutUtilisateur(String identifiant, String motPasse, String type){		
 		try {
 			sql = "INSERT INTO `utilisateur` (`identifiant`, `motPasse`, `type`) "
-						 + "VALUES (?, ?, ?)";
+			+ "VALUES (?, ?, ?)";
 			
-			// Etape 3 : Création d'un statement
 		    stmt = cn.prepareStatement(sql);
 		    
 		    stmt.setString(1, identifiant);
@@ -430,13 +429,13 @@ public class GestionBDD {
 		return true;
 	}
 	
+	// SUPPRESSION D'UN UTILISATEUR
 	public boolean supprUtilisateur(String identifiant){		
 		try {
 			sql = "DELETE FROM `utilisateur` WHERE identifiant = ?";
 			
-			// Etape 3 : Création d'un statement
 		    stmt = cn.prepareStatement(sql);
-		    
+		   
 		    stmt.setString(1, identifiant);
 		    
 		    try{
@@ -452,14 +451,22 @@ public class GestionBDD {
 		return true;
 	}
 	
+	// RETOURNE LE TYPE DE COMPTE (ETUDIANT - ADMINISTRATEUR - ENTREPRISE)
 	public String getType(){
 		return type;
 	}
 	
+	// RETOURNE L'ID DE L'ENTREPRISE OU DE L'ETUDIANT
 	public String getId(){
 		return ide;
 	}
 	
+	// RETOURNE L'ID UTILISATEUR
+	public String getIdu(){
+		return idu;
+	}
+	
+	// RETOURNE LA VALEUR DE LA CONNEXION (SI UN UTILISATEUR EST CONNECTÉ OU NON)
 	public boolean getValCo(){
 		return valCo;
 	}	
