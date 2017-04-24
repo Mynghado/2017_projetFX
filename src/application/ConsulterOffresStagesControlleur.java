@@ -149,7 +149,7 @@ public class ConsulterOffresStagesControlleur {
 		// SI UNE OFFRE DE STAGE EST SÉLECTIONNÉE
 		if (i >= 0) {
 			// SI L'UTILISATEUR EST BIEN CONNECTÉ
-			if (Main.valCo) {
+			if (Main.gst.getValCo()) {
 				// S'IL SAGIT D'UN ETUDIANT ET QU'IL N'A PAS DÉJÀ POSTULÉ À
 				// CETTE OFFRE DE STAGE
 				if (isEtudiant() && isPostulee(i)) {

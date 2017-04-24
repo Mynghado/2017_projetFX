@@ -29,8 +29,6 @@ public class TableauDeBordEtudiantModifierControlleur {
 
 	@FXML
 	public void initialize() {
-//		nom.setText("salut");
-//		prenom.setText("salut");
 		noEtRue.setText("");
 		codePostal.setText("");
 		ville.setText("");

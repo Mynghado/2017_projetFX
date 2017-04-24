@@ -36,7 +36,7 @@ public class AcceuilControlleur {
 	@FXML
 	public void initialize() {
 		// SI NOUS SOMMES CONNECTÉS -> BOUTON DÉCONNEXION
-		if (Main.valCo == true) {
+		if (Main.gst.getValCo() == true) {
 			connexion.setText("DÉCONNEXION");
 			inscription.setVisible(false);
 		} else {
@@ -74,7 +74,7 @@ public class AcceuilControlleur {
 		Alert alert = new Alert(AlertType.ERROR);
 
 		// SI L'UTILISATEUR EST UNE ENTREPRISE
-		if (Main.valCo == true) {
+		if (Main.gst.getValCo() == true) {
 			if (Main.gst.getType().equals("entreprise")) {
 				System.out.println(Main.gst.getType());
 				((Node) (event.getSource())).getScene().getWindow().hide();
@@ -121,7 +121,7 @@ public class AcceuilControlleur {
 
 	@FXML
 	public void clicConnexion(ActionEvent event) {
-		if (Main.valCo == false) {
+		if (Main.gst.getValCo() == false) {
 			((Node) (event.getSource())).getScene().getWindow().hide();
 			try {
 				Stage primaryStage = new Stage();

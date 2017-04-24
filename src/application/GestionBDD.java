@@ -25,6 +25,7 @@ public class GestionBDD {
     private static ResultSet rst = null;
 	private static ResultSet rs, rs2 = null;
 	private static String type, ide, idu;
+	private static boolean valCo = false;
 	
 	GestionBDD(java.sql.Connection connection){
 		this.cn = connection;
@@ -41,26 +42,26 @@ public class GestionBDD {
 			rs = (ResultSet) st.executeQuery(sql);
 			
 			// Si récup données alors étapes 5 (parcours Resultset)
-			while (rs.next() && Main.valCo == false) {
+			while (rs.next() && valCo == false) {
 				if(id.equals(rs.getString("identifiant")) == true && mdp.equals(rs.getString("motPasse")) == true){
 					type = rs.getString("type");
 					System.out.println(type);
 					idu = rs.getString("IDUtilisateur");
-					Main.valCo = true;
+					valCo = true;
 					getTableId(rs.getString("IDUtilisateur"));
-					return Main.valCo;
+					return valCo;
 				}
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if(Main.valCo == false){
-				Main.valCo = false;
+			if(valCo == false){
+				valCo = false;
 				type = null;
 				id = null;
 			}
-			return Main.valCo;
+			return valCo;
 		}
 	}
 	
@@ -95,7 +96,7 @@ public class GestionBDD {
 	}
 	
 	public void deconnexion(){
-		Main.valCo = false;
+		valCo = false;
 		type = null;
 		ide = null;
 	}
@@ -332,7 +333,7 @@ public class GestionBDD {
 		 }
 	}
 	
-	public void exporterEnt(String nomEnt, String rue, String codePostal, String ville, String mail, String numTel, String sectActv){		
+	public void exporterEnt(Entreprise ent){		
 		try {
 			//String sql = "INSERT INTO `entreprise` (`nomEntreprise`, `adNumRue`, `adCodePostal`, `adVille`, `adMail`, `numTel`, `sectActv`) VALUES ('" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "')";
 			sql = "INSERT INTO `entreprise` (`nomEntreprise`, `adNumRue`, `adCodePostal`, `adVille`, `adMail`, `numTel`, `sectActv`, `IDUtilisateur_fk`) "
@@ -341,13 +342,13 @@ public class GestionBDD {
 			// Etape 3 : Création d'un statement
 		    stmt = cn.prepareStatement(sql);
 		    
-		    stmt.setString(1, nomEnt);
-		    stmt.setString(2, rue);
-		    stmt.setString(3, codePostal);
-		    stmt.setString(4, ville);
-		    stmt.setString(5, mail);
-		    stmt.setString(6, numTel);
-		    stmt.setString(7, sectActv);
+		    stmt.setString(1, ent.getNomEnt());
+		    stmt.setString(2, ent.getRue());
+		    stmt.setString(3, ent.getCodePostal());
+		    stmt.setString(4, ent.getVille());
+		    stmt.setString(5, ent.getMail());
+		    stmt.setString(6, ent.getNumTel());
+		    stmt.setString(7, ent.getSectActv());
 		    stmt.setString(8, idu);
 		    
 			// Etape 4 : exécution requête
@@ -451,4 +452,8 @@ public class GestionBDD {
 	public String getId(){
 		return ide;
 	}
+	
+	public boolean getValCo(){
+		return valCo;
+	}	
 }

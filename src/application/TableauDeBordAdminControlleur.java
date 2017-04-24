@@ -100,7 +100,7 @@ public class TableauDeBordAdminControlleur {
 
 	@FXML
 	public void clicRetour_deconnexion(ActionEvent event) {
-		Main.valCo = false;
+		Main.gst.deconnexion();
 		// Main.gst.deconnexion();
 		((Node) (event.getSource())).getScene().getWindow().hide();
 		try {

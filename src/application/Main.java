@@ -23,7 +23,7 @@ public class Main extends Application {
 	private BorderPane rootLayout;
 	
 	public static GestionBDD gst = new GestionBDD(ConnectionBDD.getCo());
-	static boolean valCo = false;
+	//static boolean valCo = false;
 	static Utilisateur utemp = new Utilisateur("", "", "");
 
 	static ObservableList<Entreprise> listeEntreprise;
