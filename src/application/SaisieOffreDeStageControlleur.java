@@ -71,28 +71,9 @@ public class SaisieOffreDeStageControlleur {
 		if (domaineDeL_Offre.getText().isEmpty()
 		|| libelleDeL_Offre.getText().isEmpty() || dateDeDebut.getValue() == null || duree.getValue() == null
 		|| cheminDeL_Offre.getText().isEmpty()) {
-			// ON CREE UN MESSAGE D'ERREUR AFIN QUE L'UTILISATEUR PUISSE REMPLIR
-			// L'OFFRE DE STAGE CONVENABLEMENT
-//			String messageErreur = "";
-//
-//			if (domaineDeL_Offre.getText().isEmpty()) {
-//				messageErreur += "- Le domaine\n";
-//			}
-//			if (libelleDeL_Offre.getText().isEmpty()) {
-//				messageErreur += "- Le libellé\n";
-//			}
-//			if (dateDeDebut.getValue() == null) {
-//				messageErreur += "- La date\n";
-//			}
-//			if (duree.getValue() == null) {
-//				messageErreur += "- La durée\n";
-//			}
-//			if (cheminDeL_Offre.getText().isEmpty()) {
-//				messageErreur += "- Le chemin de l'offre\n";
-//			}
-			
 			// CREATION DE L'ALERTE
 			Alert alert = new Alert(AlertType.ERROR);
+			
 			alert.setTitle("Attention !");
 			alert.setHeaderText("Vous n'avez pas rempli tous les champs !");
 			alert.setContentText("Veuillez compléter la totalité du formulaire : \n");

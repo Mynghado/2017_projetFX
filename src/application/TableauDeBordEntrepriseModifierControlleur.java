@@ -89,7 +89,7 @@ public class TableauDeBordEntrepriseModifierControlleur {
 	public void clicAnnuler(ActionEvent event) {
 		// IL NE SE PASSE RIEN
 		// ON FERME JUSTE LA PAGE
-((Node) (event.getSource())).getScene().getWindow().hide();
+		((Node) (event.getSource())).getScene().getWindow().hide();
 		
 		try {
 			Stage primaryStage = new Stage();

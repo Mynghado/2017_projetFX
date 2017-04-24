@@ -89,8 +89,6 @@ public class TableauDeBordEtudiantControlleur {
 		offreAcceptee = FXCollections.observableArrayList(); // définition des données
 		offrePostuleeEtudiant = FXCollections.observableArrayList(); // définition des données
 		
-		Main.gst.importEtudiant();
-		Main.gst.importOffresPostulees();
 		triOffres();
 
 		lesOffresPostulees_Entreprises.setCellValueFactory(new PropertyValueFactory<>("nomEnt"));
@@ -129,6 +127,7 @@ public class TableauDeBordEtudiantControlleur {
 
 			// CREE UN FICHIER FXML (VIDE POUR L'INSTANT)
 			FXMLLoader loader = new FXMLLoader();
+			
 			// DONNE LE CHEMIN AU FICHIER FXML CREE AU-DESSUS
 			loader.setLocation(Main.class.getResource("Acceuil.fxml"));
 
@@ -156,6 +155,7 @@ public class TableauDeBordEtudiantControlleur {
 
 			// CREE UN FICHIER FXML (VIDE POUR L'INSTANT)
 			FXMLLoader loader = new FXMLLoader();
+			
 			// DONNE LE CHEMIN AU FICHIER FXML CREE AU-DESSUS
 			loader.setLocation(Main.class.getResource("Acceuil.fxml"));
 
@@ -206,8 +206,10 @@ public class TableauDeBordEtudiantControlleur {
 			Stage primaryStage = new Stage();
 			// DONNE LE TITRE A LA FENETRE
 			primaryStage.setTitle("Saisie d'une offre de stage étape 1/2");
+			
 			// CREE UN FICHIER FXML (VIDE POUR L'INSTANT)
 			FXMLLoader loader = new FXMLLoader();
+			
 			// DONNE LE CHEMIN AU FICHIER FXML CREE AU-DESSUS
 			loader.setLocation(Main.class.getResource("TableauDeBordEtudiantModifier.fxml"));
 
@@ -243,7 +245,6 @@ public class TableauDeBordEtudiantControlleur {
 			}
 		}
 
-		System.out.println(
-				"offrePostulee : " + offrePostuleeEtudiant.size() + " offreAcceptee : " + offreAcceptee.size());
+		System.out.println("offrePostulee : " + offrePostuleeEtudiant.size() + " offreAcceptee : " + offreAcceptee.size());
 	}
 }

@@ -22,7 +22,6 @@ public class SaisieOffreDeStageControlleur2 {
 	@FXML
 	private Button annuler;
 	
-	
 	static String desc;
 
 	public SaisieOffreDeStageControlleur2 () {
@@ -69,7 +68,6 @@ public class SaisieOffreDeStageControlleur2 {
 		}
 	}
 
-	
 	public void clicAnnuler () {
 		
 	}

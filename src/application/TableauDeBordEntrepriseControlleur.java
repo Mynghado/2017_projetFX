@@ -98,21 +98,13 @@ public class TableauDeBordEntrepriseControlleur {
 
 	@FXML
 	public void initialize() {
-		offreEntreprise = FXCollections.observableArrayList(); // définition des
-																// données
-		offreAcceptee = FXCollections.observableArrayList(); // définition des
-																// données
-		offrePostulee = FXCollections.observableArrayList(); // définition des
-																// données
+		offreEntreprise = FXCollections.observableArrayList(); // définition des données
+		offreAcceptee = FXCollections.observableArrayList(); // définition des données
+		offrePostulee = FXCollections.observableArrayList(); // définition des données
 
-		Main.gst.importOffre();
-		Main.gst.importEnt();
-		Main.gst.importOffresPostulees();
 		triOffres();
 
-		System.out.println(offreAcceptee.size());
-		// paramètre -> le nom de l'attribut - il doit y avoir un
-		// "nomVariableProperty"
+		// paramètre -> le nom de l'attribut - il doit y avoir un "nomVariableProperty"
 		// EN BAS A GAUCHE
 		offrePostee_libelle.setCellValueFactory(new PropertyValueFactory<>("libl"));
 		offrePostee_dateDebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
@@ -136,8 +128,7 @@ public class TableauDeBordEntrepriseControlleur {
 		offreStagePostulee_Accepte.setItems(null);
 		offreStagePostulee_Accepte.setItems(offreAcceptee);
 
-		// EN HAUT A GAUCHE
-		// INITIALISE LES INFORMATIONS DE L'ENTREPRISE CONNECTÉE
+		// EN HAUT A GAUCHE INITIALISE LES INFORMATIONS DE L'ENTREPRISE CONNECTÉE
 		for (Entreprise e : Main.gst.importEnt()) {
 			if (e.getIDEntreprise().equals(Main.gst.getId())) {
 				nomDeL_Entreprise.setText(e.getNomEnt());
@@ -159,6 +150,7 @@ public class TableauDeBordEntrepriseControlleur {
 
 			// CREE UN FICHIER FXML (VIDE POUR L'INSTANT)
 			FXMLLoader loader = new FXMLLoader();
+			
 			// DONNE LE CHEMIN AU FICHIER FXML CREE AU-DESSUS
 			loader.setLocation(Main.class.getResource("Acceuil.fxml"));
 
@@ -186,6 +178,7 @@ public class TableauDeBordEntrepriseControlleur {
 
 			// CRÉE UN FICHIER FXML (VIDE POUR L'INSTANT)
 			FXMLLoader loader = new FXMLLoader();
+			
 			// DONNE LE CHEMIN AU FICHIER FXML CREE AU-DESSUS
 			loader.setLocation(Main.class.getResource("Acceuil.fxml"));
 
@@ -213,12 +206,10 @@ public class TableauDeBordEntrepriseControlleur {
 
 		// SI L'ENTREPRISE EST DANS LA LISTE
 		if (i >= 0) {
-			// 1 - RECUPERATION DE L'ID DE L'ENTREPRISE ET SUPPRESSION DANS LA
-			// BDD
+			// 1 - RECUPERATION DE L'ID DE L'ENTREPRISE ET SUPPRESSION DANS LA BDD
 			Main.gst.supprOffre(offreEntreprise.get(i).getIDOffreStage());
 
 			// 3 - REIMPORTATION DE LA LISTE DEPUIS LA BDD
-			Main.gst.importOffre();
 			triOffres();
 
 			// 4 - APPLIQUER LA "NOUVELLE" LISTE OBSERVABLE AU TABLE VIEW
@@ -284,6 +275,7 @@ public class TableauDeBordEntrepriseControlleur {
 
 				// CREE UN FICHIER FXML (VIDE POUR L'INSTANT)
 				FXMLLoader loader = new FXMLLoader();
+				
 				// DONNE LE CHEMIN AU FICHIER FXML CREE AU-DESSUS
 				loader.setLocation(Main.class.getResource("TableauDeBordEntrepriseModifier.fxml"));
 

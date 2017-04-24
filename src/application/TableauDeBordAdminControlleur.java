@@ -73,10 +73,6 @@ public class TableauDeBordAdminControlleur {
 
 	@FXML
 	public void initialize() {
-		Main.gst.importEnt();
-		Main.gst.importOffre();
-		Main.gst.importEtudiant();
-
 		// ETAPE 3 : SPECIFIER CE QUE DOIT AFFICHER LA COLONNE
 		lesEntreprises_Nom.setCellValueFactory(new PropertyValueFactory<>("nomEnt"));
 		lesEntreprises_Rue.setCellValueFactory(new PropertyValueFactory<>("rue"));
@@ -137,10 +133,6 @@ public class TableauDeBordAdminControlleur {
 			// 1 - RECUPERATION DE L'ID DE L'ENTREPRISE ET SUPPRESSION DANS LA BDD
 			Main.gst.supprEnt(lesEntreprises.getItems().get(i).getIDUtilisateur_fk());
 
-			// 2 - REIMPORTATION DE LA LISTE DEPUIS LA BDD
-			Main.gst.importEnt();
-			Main.gst.importOffre();
-
 			// 3 - APPLIQUER LA "NOUVELLE" LISTE OBSERVABLE AU TABLE VIEW
 			lesEntreprises.setItems(Main.gst.importEnt());
 			lesOffresDeStages.setItems(Main.gst.importOffre());
@@ -164,9 +156,6 @@ public class TableauDeBordAdminControlleur {
 			// 1 - RECUPERATION DE L'ID DE L'ENTREPRISE ET SUPPRESSION DANS LA BDD
 			Main.gst.supprOffre(lesOffresDeStages.getItems().get(i).getIDOffreStage());
 
-			// 2 - REIMPORTATION DE LA LISTE DEPUIS LA BDD
-			Main.gst.importOffre();
-
 			// 3 - APPLIQUER LA "NOUVELLE" LISTE OBSERVABLE AU TABLE VIEW
 			lesOffresDeStages.setItems(Main.gst.importOffre());
 		}
@@ -189,9 +178,6 @@ public class TableauDeBordAdminControlleur {
 		if (i >= 0) {
 			// 1 - RECUPERATION DE L'ID DE L'ENTREPRISE ET SUPPRESSION DANS LA BDD
 			Main.gst.supprEtudiant(lesEtudiants.getItems().get(i).getIDUtilisateur_fk());
-
-			// 2 - REIMPORTATION DE LA LISTE DEPUIS LA BDD
-			Main.gst.importEtudiant();
 
 			// 3 - APPLIQUER LA "NOUVELLE" LISTE OBSERVABLE AU TABLE VIEW
 			lesEtudiants.setItems(Main.gst.importEtudiant());
