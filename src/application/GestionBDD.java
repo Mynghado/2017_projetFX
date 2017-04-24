@@ -304,17 +304,15 @@ public class GestionBDD {
 		}
 	}
 	
-	public void modifEtudiant(String nom, String prenom, String rue, String codePostal, String ville, String tel, String mail){
+	public void modifEtudiant(String rue, String codePostal, String ville, String tel, String mail){
 		try{
-			stmt = cn.prepareStatement("UPDATE etudiant SET nom = ?, prenom = ?, adNumRue = ?, adCodePostal = ?, adVille = ?, adMail = ?, numTel = ? WHERE IDUtilisateur_fk = ?");
-			stmt.setString(1, nom);
-			stmt.setString(2, prenom);
-			stmt.setString(3, rue);
-			stmt.setString(4, codePostal);
-			stmt.setString(5, ville);
-			stmt.setString(6, mail);
-			stmt.setString(7, tel);
-			stmt.setString(8, idu);
+			stmt = cn.prepareStatement("UPDATE etudiant SET adNumRue = ?, adCodePostal = ?, adVille = ?, adMail = ?, numTel = ? WHERE IDUtilisateur_fk = ?");
+			stmt.setString(1, rue);
+			stmt.setString(2, codePostal);
+			stmt.setString(3, ville);
+			stmt.setString(4, mail);
+			stmt.setString(5, tel);
+			stmt.setString(6, idu);
 			
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -332,30 +330,6 @@ public class GestionBDD {
 		 catch(Exception e) {
 		     System.out.println(e);
 		 }
-	}
-
-	public LinkedList<String> importDom(){
-		LinkedList<String> listDom = new LinkedList();
-		
-		try{
-			sql = "SELECT DISTINCT sectActv FROM entreprise";
-
-			// Etape 3 : Création d'un statement
-		    stmt = cn.prepareStatement(sql);
-
-			// Etape 4 : exécution requête
-			rst = (ResultSet) stmt.executeQuery();
-
-			// Si récup données alors étapes 5 (parcours Resultset)
-
-			while (rst.next()) {
-				listDom.add(rst.getString("sectActv"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return listDom;		
 	}
 	
 	public void exporterEnt(String nomEnt, String rue, String codePostal, String ville, String mail, String numTel, String sectActv){		
@@ -401,14 +375,20 @@ public class GestionBDD {
 		}
 
 	}
-	public static void exporterOffre(String nomEnt, String dmn, String libl, String dateDebut, Integer duree, String chemin, String desc){				
+	public static void exporterOffre(OffreStage offre){				
 		try {
 			// Etape 3 : Création d'un statement
-			st = (Statement) cn.createStatement();
-
-			//String sql = "INSERT INTO `entreprise` (`nomEntreprise`, `adNumRue`, `adCodePostal`, `adVille`, `adMail`, `numTel`, `sectActv`) VALUES ('" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "')";
-			String sql = "INSERT INTO `offreStage` (`nomEntreprise`, `domOffre`, `libelle`, `dateDebut`, `duree`, `chemin`, `description`) "
-						 + "VALUES ('" + nomEnt + "', '" + dmn + "', '" + libl + "', '" + dateDebut + "', '" + duree + "', '" + chemin + "', + '" + desc + "')";
+			sql = "INSERT INTO `offreStage` (`nomEntreprise`, `domOffre`, `libelle`, `dateDebut`, `duree`, `chemin`, `description`) "
+			 			 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+			
+			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, offre.getNomEnt());
+			stmt.setString(2, offre.getDmn());
+			stmt.setString(3, offre.getLibl());
+			stmt.setString(4, offre.getDateDebut());
+			stmt.setInt(5, offre.getDuree());
+			stmt.setString(6, offre.getChemin());
+			stmt.setString(7, offre.getDesc());
 
 			// Etape 4 : exécution requête
 			st.executeUpdate(sql);
