@@ -13,7 +13,7 @@ public class ConnectionBDD {
 	private static String passwd = "";
 	// Objet Connection
 	private static java.sql.Connection connect;
-		   
+	
 	// Méthode pour récupérer l'instance de connexion, si elle n'éxiste pas déjà, on la créé.
 	public static java.sql.Connection getCo(){
 		try {

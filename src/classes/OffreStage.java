@@ -59,7 +59,8 @@ public class OffreStage {
 	}
 	
 	public void exporter(){
-		Main.gst.exporterOffre(nomEnt.get(), dmn.get(), libl.get(), dateDebut.get(), duree.get(), chemin.get(), desc.get());
+		System.out.println(this.nomEnt + "" + this.dmn + this.libl + this.dateDebut + this.duree + this.chemin + this.desc);
+		Main.gst.exporterOffre(this);
 	}
 	
 	public void importer(){

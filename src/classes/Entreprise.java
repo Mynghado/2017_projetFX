@@ -44,7 +44,7 @@ public class Entreprise {
 	}
 
 	public void exporter(){
-	    Main.gst.exporterEnt(nomEnt.get(), rue.get(), codePostal.get(), ville.get(), mail.get(), numTel.get(), sectActv.get());
+	    Main.gst.exporterEnt(this);
 	}
 
 //	public void importer() {
