@@ -13,6 +13,8 @@ import classes.Etudiant;
 import classes.OffrePostulee;
 import classes.OffreStage;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class GestionBDD {
 	private static String sql = null;
@@ -96,12 +98,11 @@ public class GestionBDD {
 		ide = null;
 	}
 			
-	public void importEnt(){
+	public ObservableList<Entreprise> importEnt(){
 		String nomCol[] = {"IDEntreprise", "nomEntreprise", "adNumRue", "adCodePostal", "adVille", "adMail", "numTel", "sectActv", "IDUtilisateur_fk"};
-		String sql = null;
-	    ResultSet rst = null;
+		ObservableList<Entreprise> listEnt = FXCollections.observableArrayList();
 
-		Main.listeEntreprise.remove(0, Main.listeEntreprise.size());
+		//Main.listeEntreprise.remove(0, Main.listeEntreprise.size());
 
 		try{
 			sql = "SELECT * FROM entreprise";
@@ -114,13 +115,15 @@ public class GestionBDD {
 
 			// Si récup données alors étapes 5 (parcours Resultset)
 			while (rst.next()) {
-				Main.listeEntreprise.add(new Entreprise(rst.getString(nomCol[0]), rst.getString(nomCol[1]), rst.getString(nomCol[2]), 
+				listEnt.add(new Entreprise(rst.getString(nomCol[0]), rst.getString(nomCol[1]), rst.getString(nomCol[2]), 
 				rst.getString(nomCol[3]), rst.getString(nomCol[4]), rst.getString(nomCol[5]), rst.getString(nomCol[6]), rst.getString(nomCol[7]), 
 				rst.getString(nomCol[8])));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return listEnt;
 	}
 	
 	public void supprEnt(String id){
@@ -332,7 +335,7 @@ public class GestionBDD {
 		try {
 			//String sql = "INSERT INTO `entreprise` (`nomEntreprise`, `adNumRue`, `adCodePostal`, `adVille`, `adMail`, `numTel`, `sectActv`) VALUES ('" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "','" + "tuc" + "')";
 			sql = "INSERT INTO `entreprise` (`nomEntreprise`, `adNumRue`, `adCodePostal`, `adVille`, `adMail`, `numTel`, `sectActv`, `IDUtilisateur_fk`) "
-						 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			// Etape 3 : Création d'un statement
 		    stmt = cn.prepareStatement(sql);
@@ -374,10 +377,11 @@ public class GestionBDD {
 	public static void exporterOffre(OffreStage offre){				
 		try {
 			// Etape 3 : Création d'un statement
-			sql = "INSERT INTO `offreStage` (`nomEntreprise`, `domOffre`, `libelle`, `dateDebut`, `duree`, `chemin`, `description`) "
-			 			 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-			
+			sql = "INSERT INTO `offrestage` (`nomEntreprise`, `domOffre`, `libelle`, `dateDebut`, `duree`, `chemin`, `description`, `IDEntreprise_fk`) "
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
 			stmt = cn.prepareStatement(sql);
+			
 			stmt.setString(1, offre.getNomEnt());
 			stmt.setString(2, offre.getDmn());
 			stmt.setString(3, offre.getLibl());
@@ -385,10 +389,10 @@ public class GestionBDD {
 			stmt.setInt(5, offre.getDuree());
 			stmt.setString(6, offre.getChemin());
 			stmt.setString(7, offre.getDesc());
+			stmt.setString(8, ide);
 
 			// Etape 4 : exécution requête
-			stmt.executeUpdate(sql);
-
+			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

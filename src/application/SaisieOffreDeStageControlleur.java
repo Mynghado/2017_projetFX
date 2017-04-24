@@ -52,11 +52,15 @@ public class SaisieOffreDeStageControlleur {
 	// PERMET D'INITIALISER DES DONNEES DANS L'INTERFACE GRAPHIQUE
 	@FXML
 	public void initialize() {
-		
-
 		// UN STAGE VA DE 1 À 6 MOIS
 		for (int i = 1; i < 7; i++) {
 			duree.getItems().add(i);
+		}
+		
+		for (Entreprise e : Main.gst.importEnt()) {
+			if (e.getIDEntreprise().equals(Main.gst.getId())) {
+				nomDeL_Entreprise.setText(e.getNomEnt());
+			}
 		}
 	}
 
@@ -101,7 +105,7 @@ public class SaisieOffreDeStageControlleur {
 			((Node) (event.getSource())).getScene().getWindow().hide();
 			System.out.println("Vous avez rempli tous les champs !");
 
-//			nomEnt = nomDeL_Entreprise.getValue();
+			nomEnt = nomDeL_Entreprise.getText();
 			dmn = domaineDeL_Offre.getText();
 			libl = libelleDeL_Offre.getText();
 			dateDebut = dateDeDebut.getValue().toString();
