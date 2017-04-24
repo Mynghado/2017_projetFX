@@ -70,12 +70,7 @@ public class ConsulterOffresStagesControlleur {
 	public void initialize() {
 		// LE TEXTE DE LA DESCRIPTION SERA DISTRIBUé!
 		description.setWrapText(true);
-		
-		
-		//test = new StackPane(libelle_details);
 		test.setPadding(new Insets(10));
-
-		Main.gst.importOffre();
 
 		// paramètre -> le nom de l'attribut - il doit y avoir un
 		// "nomVariableProperty"
@@ -88,8 +83,7 @@ public class ConsulterOffresStagesControlleur {
 		offreStage.setItems(Main.gst.importOffre());
 
 		// APELLE LA METHODE D'ECOUTE
-		offreStage.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> detailsDuStage(newValue));
+		offreStage.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> detailsDuStage(newValue));
 	}
 
 	
@@ -142,8 +136,7 @@ public class ConsulterOffresStagesControlleur {
 	@FXML
 	public void clicPostuler(ActionEvent event) {
 		Alert alert = new Alert(AlertType.ERROR);
-		// 1 - RAJOUTER UNE LIGNE DANS LA TABLE OFFREPOSTULEE AVEC L'ID DE
-		// L'ETUDIANT ET DE L'OFFRE
+		// STOCKAGE DE L'EMPLACEMENT DE L'OFFRE DE STAGE SÉLECTIONNÉE
 		int i = offreStage.getSelectionModel().getSelectedIndex();
 
 		// SI UNE OFFRE DE STAGE EST SÉLECTIONNÉE
@@ -162,8 +155,7 @@ public class ConsulterOffresStagesControlleur {
 				alert.showAndWait();
 			}
 		}
-		// MESSAGE D'ERREUR SI L'UTILISATEUR N'A PAS SELECTIONNE D'OFFRE DE
-		// STAGE
+		// MESSAGE D'ERREUR SI L'UTILISATEUR N'A PAS SELECTIONNE D'OFFRE DE STAGE
 		else {
 			alert.setTitle("Attention !");
 			alert.setHeaderText("Vous n'avez pas selectionné d'offre de stage");
@@ -172,13 +164,13 @@ public class ConsulterOffresStagesControlleur {
 		}
 	}
 
+	// VERIF. SI L'ÉTUDIANT A DÉJÀ POSTULÉ À CETTE OFFRE
 	public boolean isPostulee(int i) {
 		Alert alert = new Alert(AlertType.ERROR);
-		Main.gst.importOffresPostulees();
 
 		for (OffrePostulee o : Main.gst.importOffresPostulees()) {
 			if (o.getIDEtudiant().equals(Main.gst.getId())
-					&& o.getIDOffreStage().equals(offreStage.getItems().get(i).getIDOffreStage())) {
+			&& o.getIDOffreStage().equals(offreStage.getItems().get(i).getIDOffreStage())) {
 				alert.setTitle("Attention !");
 				alert.setHeaderText("Vous avez déjà postulé à cette offre de stage");
 				alert.setContentText(
@@ -192,6 +184,7 @@ public class ConsulterOffresStagesControlleur {
 		return true;
 	}
 
+	// VERIF. SI L'UTILISATEUR EST BIEN UN ÉTUDIANT
 	public boolean isEtudiant() {
 		Alert alert = new Alert(AlertType.ERROR);
 

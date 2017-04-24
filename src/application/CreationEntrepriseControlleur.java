@@ -53,12 +53,10 @@ public class CreationEntrepriseControlleur {
 
 	@FXML
 	public void confirmerAction(ActionEvent event) {
-		// Entreprise ent = new Entreprise();
-		System.out.println(nomEntreprise.getText());
 		if (nomEntreprise.getText().isEmpty() || adresseEntreprise.getText().isEmpty()
-				|| CPEntreprise.getText().isEmpty() || villeEntreprise.getText().isEmpty()
-				|| mailEntreprise.getText().isEmpty() || telEntreprise.getText().isEmpty()
-				|| domaine.getValue() == null) {
+		|| CPEntreprise.getText().isEmpty() || villeEntreprise.getText().isEmpty()
+		|| mailEntreprise.getText().isEmpty() || telEntreprise.getText().isEmpty()
+		|| domaine.getValue() == null) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Attention !");
 			alert.setHeaderText("Vous n'avez pas rempli tous les champs !");
@@ -68,18 +66,23 @@ public class CreationEntrepriseControlleur {
 		// ON PASSE A LA FENETRE SUIVANTE
 		else {
 			((Node) (event.getSource())).getScene().getWindow().hide();
-			// CREATION D'UNE ENTREPRISE
+			// VÉRIFICATION SI IDENTIFIANTS PAS DÉJÀ PRIS
 			Main.gst.ajoutUtilisateur(Main.utemp.getIdentifiant(), Main.utemp.getMotPasse(), Main.utemp.getType());
+			
+			// CONNEXION (POUR L'EXPORTATION - FERA LA LIAISON ENTRE L'UTILISATEUR ET SON ENTREPRISE)
 			Main.gst.connexion(Main.utemp.getIdentifiant(), Main.utemp.getMotPasse());
 			
+			// CRÉATION DE L'ENTREPRISE
 			Entreprise ent = new Entreprise(nomEntreprise.getText(), adresseEntreprise.getText(),
-					CPEntreprise.getText(), villeEntreprise.getText(), mailEntreprise.getText(),
-					telEntreprise.getText(), domaine.getValue().toString());
+			CPEntreprise.getText(), villeEntreprise.getText(), mailEntreprise.getText(),
+			telEntreprise.getText(), domaine.getValue().toString());
 
-			// EXPORTE L'ENTREPRISE VERS LA BDD VIA GESTIONBDD
+			// EXPORTATION DE L'ENTREPRISE
 			ent.exporter();
 			
+			// DÉCONNEXION
 			Main.gst.deconnexion();
+			
 			// PAGE SUIVANTE
 			try {
 				Stage primaryStage = new Stage();
@@ -111,18 +114,6 @@ public class CreationEntrepriseControlleur {
 	public void annulerAction(ActionEvent event) {
 		((Node) (event.getSource())).getScene().getWindow().hide();
 
-//		// SI L'UTILISATEUR A DEJA ENTRE DES VALEURS
-//		// ON LUI DEMANDE SI IL VEUT BIEN ANNULER SA SAISIE
-//		if (nomEntreprise.getText() != null || adresseEntreprise.getText() != null || CPEntreprise.getText() != null) {
-//			System.out.println("Voulez vous annuler votre saisie ?");
-//		}
-//		// SI IL N'Y A AUCUNE DONNEE SAISIE
-//		// ON REVIENT A L'ACCEUIL
-//		else {
-//
-//			
-//		}
-		
 		try {
 			Stage primaryStage = new Stage();
 			// DONNE LE TITRE A LA FENETRE
