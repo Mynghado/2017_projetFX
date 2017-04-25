@@ -57,7 +57,7 @@ public class UtilisateurDAO {
 			if(rst.first()) {
 				if(rst.getString("motPasse").equals(motPasse)){
 					System.out.println("oui");
-					ConnectionBDD.setTypeCo(rst.getString("type"));
+//					ConnectionBDD.setTypeCo(rst.getString("type"));
 					getTableID(rst.getString("IDUtilisateur"));
 					valCo = true;
 					
@@ -77,7 +77,7 @@ public class UtilisateurDAO {
 	
 	public void deconnexion(){
 		valCo = false;
-		ConnectionBDD.setTypeCo(null);
+//		ConnectionBDD.setTypeCo(null);
 		ide = null;
 	}
 	

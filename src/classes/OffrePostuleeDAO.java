@@ -7,28 +7,28 @@ import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class OffrePostuleeDAO extends DAO<OffrePostulee> {
+public class OffrePostuleeDAO  {
+	protected java.sql.Connection connect = null;
     private java.sql.PreparedStatement stmt = null;
     private String sql = null;
     private ResultSet rst = null;
 
 	public OffrePostuleeDAO(java.sql.Connection connection) {
-		super(connection);
+		this.connect = connection;
 	}
 
-	public boolean create(OffrePostulee offre) {		
+	public boolean create(Etudiant etu, OffrePostulee offre) {		
 		try {			
 		    stmt = this.connect.prepareStatement("INSERT INTO offrePostulee (`IDEtudiant_fk`, `IDOffreStage_fk`, `statut`) "
 			+ "VALUES (?, ?, ?)");
-		    stmt.setString(1, new UtilisateurDAO(this.connect).getTableID(ConnectionBDD.getUti().getIDUtilisateur()));
+		    stmt.setString(1, etu.getIDEtudiant());
 		    stmt.setString(2, offre.getIDOffreStage());
 		    stmt.setString(3, "0");
 			
-		    stmt.executeUpdate(); 
-		    
-		    //importOffresPostulees();
+		    stmt.executeUpdate(); 		    
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
 		
 		return true;
@@ -91,26 +91,26 @@ public class OffrePostuleeDAO extends DAO<OffrePostulee> {
 		return offre;
 	}
 	
-	public ObservableList<OffrePostulee> findAll() {
+	public ObservableList<OffrePostulee> findAll(Utilisateur uti) {
 		String nomCol[] = {"IDOffreStage", "nomEntreprise", "domOffre", "libelle", "dateDebut", "duree", "chemin", "description", "IDEntreprise_fk"};
 		String nomCol2[] = {"IDEtudiant", "nom", "prenom", "adNumRue", "adCodePostal", "adVille", "adMail", "numTel", "ecole", "IDUtilisateur_fk"};
 		String nomCol3 = "statut";
 		ObservableList<OffrePostulee> listOffre = FXCollections.observableArrayList();
 		
 		try{
-			if(ConnectionBDD.getUti().getType().equals("entreprise")){
+			if(uti.getType().equals("entreprise")){
 				sql = "SELECT o.*, e.*, o2.statut FROM offrestage o INNER JOIN offrepostulee o2 ON o.IDOffreStage = o2.IDOffreStage_fk "
 				+ "INNER JOIN etudiant e ON e.IDEtudiant = o2.IDEtudiant_fk WHERE o.IDEntreprise_fk = ?";
 				
 			    stmt = this.connect.prepareStatement(sql);
-			    stmt.setString(1, new UtilisateurDAO(this.connect).getTableID(ConnectionBDD.getUti().getIDUtilisateur()));
+			    stmt.setString(1, uti.getIDUtilisateur());
 			}
-			else if(ConnectionBDD.getUti().getType().equals("etudiant")){
+			else if(uti.getType().equals("etudiant")){
 				sql = "SELECT o.*, e.*, o2.statut FROM offrestage o INNER JOIN offrepostulee o2 ON o.IDOffreStage = o2.IDOffreStage_fk "
 				+ "INNER JOIN etudiant e ON e.IDEtudiant = o2.IDEtudiant_fk AND o2.IDEtudiant_fk = ?";
 				
 			    stmt = this.connect.prepareStatement(sql);
-			    stmt.setString(1, ConnectionBDD.getUti().getIDUtilisateur());
+			    stmt.setString(1, uti.getIDUtilisateur());
 			}
 	  
 			rst = (ResultSet) stmt.executeQuery();

@@ -56,22 +56,21 @@ public class OffreStageDAO extends DAO<OffreStage> {
 	}
 		
 	public boolean update(OffreStage offre) {
-//		try{
-//		    stmt = this.connect.prepareStatement("UPDATE offreStage SET adNumRue = ?, adCodePostal = ?, adVille = ?, adNumTel = ?, adMail = ?"
-//		    + " WHERE IDEntreprise = ?");
-//		    stmt.setString(1, offre.getRue());
-//		    stmt.setString(2, offre.getCodePostal());
-//		    stmt.setString(3, offre.getVille());
-//		    stmt.setString(4, offre.getNumTel());
-//		    stmt.setString(5, offre.getMail());
-//		    stmt.setString(6, offre.getIDEntreprise());
+		try{
+		    stmt = this.connect.prepareStatement("UPDATE offreStage SET libelle = ?, dateDebut = ?, duree = ?, description = ?"
+		    + " WHERE IDEntreprise = ?");
+		    stmt.setString(1, offre.getLibl());
+		    stmt.setString(2, offre.getDateDebut());
+		    stmt.setString(3, offre.getDuree().toString());
+		    stmt.setString(4, offre.getDesc());
+		    //stmt.setString(5, );
 		    
-//		    stmt.executeUpdate(); 
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			return false;
-//		}
-//		
+		    stmt.executeUpdate(); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	    return true;
 	}
 		   
