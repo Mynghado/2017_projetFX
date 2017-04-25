@@ -39,7 +39,6 @@ public class GestionBDD {
 			rst = (ResultSet) stmt.executeQuery(sql);
 			
 			while (rst.next() && valCo == false) {
-				System.out.println(md5(mdp) + " " + rst.getString("motPasse"));
 				if(id.equals(rst.getString("identifiant")) == true && md5(mdp).equals(rst.getString("motPasse")) == true){
 					type = rst.getString("type");
 					System.out.println(type);
