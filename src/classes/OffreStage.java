@@ -19,6 +19,11 @@ public class OffreStage {
 	private StringProperty adMail;
 	private IntegerProperty duree;
 	
+	// CONSTRUCTEUR DAO
+	public OffreStage(){
+		
+	}
+	
 	// CONSTRUCTEUR INSCRIPTION OFFRESTAGE
 	public OffreStage(String nomEnt, String dmn, String libl, String dateDebut, Integer duree, String chemin, String desc){
         this.nomEnt = new SimpleStringProperty(nomEnt);

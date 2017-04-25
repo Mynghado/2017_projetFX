@@ -18,6 +18,11 @@ public class Entreprise {
 	private StringProperty sectActv;
 	private StringProperty IDUtilisateur_fk;
 
+	// CONSTRUCTEUR UTILISATION DAO
+	public Entreprise(){
+		
+	}
+	
 	// CONSTRUCTEUR INSCRIPTION ENTREPRISE
 	public Entreprise(String nomEnt, String rue, String codePostal, String ville, String mail, String numTel, String sectActv) {
 		this.nomEnt = new SimpleStringProperty(nomEnt);
@@ -47,29 +52,6 @@ public class Entreprise {
 	    Main.gst.exporterEnt(this);
 	}
 
-//	public void importer() {
-//		 GestionBDD gstbdd = new GestionBDD();
-//		
-//		 LinkedList<String> listEnt = gstbdd.importEnt();
-//		 nomEnt = listEnt.get(0);
-//		 rue = listEnt.get(1);
-//		 codePostal = listEnt.get(2);
-//		 ville = listEnt.get(3);
-//		 mail = listEnt.get(4);
-//		 numTel = listEnt.get(5);
-//		 sectActv = listEnt.get(6);
-//
-//		// Voir pour retourner un objet entreprise / une liste d'entreprises
-//		// dans la méthode importer de GestionBDD
-//	}
-
-//	public void importer() {
-//		LinkedList<Entreprise> listEnt = Main.gst.importEnt();
-//		for(Entreprise e : listEnt){
-//			Main.listeEntreprise.add(e);
-//		}
-//	}
-	
 	// GETTER DES STRING
 	public String getIDEntreprise() {
 		return IDEntreprise.get();

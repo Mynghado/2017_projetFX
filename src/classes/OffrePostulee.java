@@ -9,6 +9,11 @@ public class OffrePostulee extends OffreStage {
 	private StringProperty prenomEtudiant;
 	private StringProperty statut;
 
+	// CONSTRUCTEUR DAO
+	public OffrePostulee(){
+		
+	}
+	
 	public OffrePostulee(String IDOffreStage, String nomEnt, String dmn, String libl, String dateDebut, Integer duree, 
 	String chemin, String desc, String IDEntreprise_fk, String IDEtudiant, String nomEtudiant, String prenomEtudiant, String statut) {
 		super(IDOffreStage, nomEnt, dmn, libl, dateDebut, duree, chemin, desc, IDEntreprise_fk);

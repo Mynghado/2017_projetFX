@@ -16,6 +16,11 @@ public class Etudiant {
 	private StringProperty ecole;
 	private StringProperty IDUtilisateur_fk;
 
+	// CONSTRUCTEUR DAO
+	public Etudiant(){
+		
+	}
+	
 	public Etudiant(String IDEtudiant, String nom, String prenom, String rue, String codePostal, 
 	String ville, String mail, String numTel, String ecole, String IDUtilisateur_fk){
 		this.IDEtudiant = new SimpleStringProperty(IDEtudiant);

@@ -4,7 +4,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionBDD {
-	
 	// URL de connexion
 	private static String url = "jdbc:mysql://localhost/bdd_stage";
 	// Nom du user
