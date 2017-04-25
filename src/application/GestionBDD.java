@@ -1,4 +1,5 @@
 package application;
+import java.security.MessageDigest;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -38,7 +39,8 @@ public class GestionBDD {
 			rst = (ResultSet) stmt.executeQuery(sql);
 			
 			while (rst.next() && valCo == false) {
-				if(id.equals(rst.getString("identifiant")) == true && mdp.equals(rst.getString("motPasse")) == true){
+				System.out.println(md5(mdp) + " " + rst.getString("motPasse"));
+				if(id.equals(rst.getString("identifiant")) == true && md5(mdp).equals(rst.getString("motPasse")) == true){
 					type = rst.getString("type");
 					System.out.println(type);
 					idu = rst.getString("IDUtilisateur");
@@ -59,6 +61,35 @@ public class GestionBDD {
 			return valCo;
 		}
 	}
+	
+	// CRYPTAGE DU MOT DE PASSE
+	public static String md5( String source ) {
+        try {
+            MessageDigest md = MessageDigest.getInstance( "MD5" );
+            byte[] bytes = md.digest( source.getBytes("UTF-8") );
+            return getString(bytes);
+        } catch( Exception e )	{
+            e.printStackTrace();
+            return null;
+        }
+    }
+	
+	// GETSTRING AUTHENTIFICATION
+	private static String getString( byte[] bytes )
+    {
+        StringBuffer sb = new StringBuffer();
+        for( int i=0; i<bytes.length; i++ )
+        {
+            byte b = bytes[ i ];
+            String hex = Integer.toHexString((int) 0x00FF & b);
+            if (hex.length() == 1)
+            {
+                sb.append("0");
+            }
+            sb.append( hex );
+        }
+        return sb.toString();
+    }
 	
 	// RÉCUPÉRATION DE L'ID DE L'UTILISATEUR DANS "SA" TABLE
 	public void getTableId(String IDUti){
@@ -414,7 +445,7 @@ public class GestionBDD {
 		    stmt = cn.prepareStatement(sql);
 		    
 		    stmt.setString(1, identifiant);
-		    stmt.setString(2, motPasse);
+		    stmt.setString(2, md5(motPasse));
 		    stmt.setString(3, type);
 		    
 		    try{
