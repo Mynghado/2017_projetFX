@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -18,7 +19,7 @@ public class InscriptionControlleur {
 	@FXML
 	private TextField champIdentifiant;
 	@FXML
-	private TextField champMotDePasse;
+	private PasswordField champMotDePasse;
 
 	@FXML
 	private ChoiceBox<String> statut;
