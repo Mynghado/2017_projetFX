@@ -10,34 +10,19 @@ public abstract class DAO<T> {
 	public DAO(java.sql.Connection connection){
 		this.connect = connection;
 	}
-		   
-		  /**
-		  * Méthode de création
-		  * @param obj
-		  * @return boolean 
-		  */
+	
+	// création d'un objet 
 	public abstract boolean create(T obj);
 
-		  /**
-		  * Méthode pour effacer
-		  * @param obj
-		  * @return boolean 
-		  */
+	// suppression d'un objet
 	public abstract boolean delete(T obj);
-
-		  /**
-		  * Méthode de mise à jour
-		  * @param obj
-		  * @return boolean
-		  */
+	
+	// mise à jour d'un objet
 	public abstract boolean update(T obj);
 
-		  /**
-		  * Méthode de recherche des informations
-		  * @param id
-		  * @return T
-		  */
+	// trouvation d'un objet
 	public abstract T find(String id);
 	
+	// trouvation de tous les objets du type donné
 	public abstract ObservableList<T> findAll();
 }
